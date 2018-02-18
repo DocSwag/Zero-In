@@ -132,7 +132,8 @@ public class KeyInputter {
 				else if (event.getVirtualKeyCode()==GlobalKeyEvent.VK_RIGHT) {
 					addRight();
 				}
-				System.out.println(event); }
+				System.out.println(event); 
+				}
 		});
 		try {
 			while(run) Thread.sleep(128);
