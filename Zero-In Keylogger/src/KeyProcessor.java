@@ -13,7 +13,6 @@ public class KeyProcessor {
 			//Making booleans for whether or not gaming is suspected/detected
 			boolean maybeFramed = false;
 			boolean defMaf = false;
-			
 			//making ints for how many sus keys typed in last 10 seconds and how many total keys in last 10 seconds
 			int tenSusSum = 0;
 			int tenSum = 0;
@@ -47,10 +46,16 @@ public class KeyProcessor {
 					thirtySum += KeyInputter.tentwentysec[8];
 					thirtySum += KeyInputter.twentythirtysec[8];
 					
-					if (thirtySusSum/thirtySum >= .5 && thirtySum > 20) {
+					if ((double)thirtySusSum/(double)thirtySum >= .5 && thirtySum > 20) {
 						defMaf = true;
 						System.out.println("icle");
 					}
+					else {
+						System.out.println("no icle");
+					}
+				}
+				else {
+					System.out.println("no test");
 				}
 			}
 			/**try { Thread.sleep(500); }

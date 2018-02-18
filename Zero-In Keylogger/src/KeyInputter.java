@@ -96,8 +96,8 @@ public class KeyInputter {
 			//key presses for pushing down
 			@Override public void keyPressed(GlobalKeyEvent event) {
 				//System.out.println(event);
-				if(event.getVirtualKeyCode()==GlobalKeyEvent.VK_ESCAPE)
-					run = false;
+				//if(event.getVirtualKeyCode()==GlobalKeyEvent.VK_ESCAPE)
+				//	run = false;
 			}
 			//key presses for lifting up
 			@Override public void keyReleased(GlobalKeyEvent event) {
