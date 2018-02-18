@@ -44,6 +44,22 @@ public class KeyInputter {
 		zerotensec[7]++;
 	}
 	
+	//after 10 sec, run this method so all values get shifted (counter resets)
+	public static void shifter () {
+		for (int i = 0; i < 9; i ++) {
+			hundredsec[i] -= ninetyhundredsec[i];
+			ninetyhundredsec[i] = eightyninetysec[i];
+			eightyninetysec[i] = seventyeightysec[i];
+			seventyeightysec[i] = sixtyseventysec[i];
+			sixtyseventysec[i] = fiftysixtysec[i];
+			fiftysixtysec[i] = fourtyfiftysec[i];
+			fourtyfiftysec[i] = thirtyfourtysec[i];
+			thirtyfourtysec[i] = twentythirtysec[i];
+			twentythirtysec[i] = tentwentysec[i];
+			tentwentysec[i] = zerotensec[i];
+			zerotensec [i] = 0;
+		}
+	}
 	//creating arrays that record keystrokes of past 100 seconds, with individual measurements of every ten seconds
 	// {w, a, s, d, up, down, left, right, total}
 	public static int[] hundredsec = {0,0,0,0,0,0,0,0,0};
@@ -57,13 +73,13 @@ public class KeyInputter {
 	public static int[] seventyeightysec = {0,0,0,0,0,0,0,0,0};
 	public static int[] eightyninetysec = {0,0,0,0,0,0,0,0,0};
 	public static int[] ninetyhundredsec = {0,0,0,0,0,0,0,0,0};
-	public static int[] hundredelevensec = {0,0,0,0,0,0,0,0,0};
+	
+	//creating long startTime, to use as a reference for a timer. Every ten seconds the key counters will refresh
+	static long startTime = System.currentTimeMillis();
 	
 	//Key logger
 	private static boolean run = true;
 	public static void main(String[] args) {
-		//creating long startTime, to use as a reference for a timer. Every ten seconds the key counters will refresh
-		long startTime = System.currentTimeMillis();
 		
 		//creating keyboard hook
 		GlobalKeyboardHook keyboardHook = new GlobalKeyboardHook(true);
@@ -85,6 +101,11 @@ public class KeyInputter {
 			}
 			//key presses for lifting up
 			@Override public void keyReleased(GlobalKeyEvent event) {
+				while (System.currentTimeMillis() - startTime >= 10000) {
+					shifter();
+					startTime += 10000;
+				}
+				
 				//checking the input and adding keystrokes to the array accordingly
 				addAll();
 				if (event.getVirtualKeyCode()==GlobalKeyEvent.VK_W) {
@@ -112,7 +133,6 @@ public class KeyInputter {
 					addRight();
 				}
 				System.out.println(event); }
-				
 		});
 		try {
 			while(run) Thread.sleep(128);
